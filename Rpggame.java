@@ -4,11 +4,13 @@
 public class Rpggame {
 
      public static void main (String[] args){
-
-        CharacterCreator.userCharacterCreator();
+        boolean running = true;
+         CharacterCreator.userCharacterCreator();
+        while(running == true){
+       
         enviromentCheck.changeEnv( "outside");
-        RpgMap.runMap(enviromentCheck.envCheck());
-
+        RpgMap.runMap();
+        }
 
      }
 }

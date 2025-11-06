@@ -4,48 +4,46 @@ import java.util.Random;
 
 public class RpgMap {
     
-    public static void runMap(String enviroment){
-        int playerY = 0;
-        int playerX = 0;
-        Scanner scanner = new Scanner(System.in);
-        boolean running = true;
-        Random random = new Random();
-        int roomSize = random.nextInt(8)+3;
-        int maxX = roomSize;
-        int maxY = roomSize;
-        int randDoorX = random.nextInt(maxX);
-        int randDoorY = random.nextInt(maxY);
-        
+ public static void runMap() {
+    int playerX = 0;
+    int playerY = 0;
+    Scanner scanner = new Scanner(System.in);
+    Random random = new Random();
+    boolean running = true;
 
-       switch (enviroment) {
-        case "outside":
-            while(running == true){
-            System.out.print("\033[H\033[2J"); 
-            System.out.flush();
-            drawMapOut(playerX, playerY,maxX, maxY, random, randDoorX, randDoorY);
+    int roomSize = random.nextInt(8) + 3;
+    int maxX = roomSize;
+    int maxY = roomSize;
+    int randDoorX = random.nextInt(maxX);
+    int randDoorY = random.nextInt(maxY);
 
-            int[] newPos = playerMove(playerX, playerY, scanner,maxX,maxY);
-            playerX = newPos[0];
-            playerY = newPos[1];
-        }
-            break;
-        case "inside":
-            while(running == true){
-            System.out.print("\033[H\033[2J"); 
-            System.out.flush();
+    while (running) {
+        String env = enviromentCheck.envCheck();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        if (env.equals("outside")) {
+            drawMapOut(playerX, playerY, maxX, maxY,random, randDoorX, randDoorY);
+
+            // Om spelaren står på dörren
+            if (playerX == randDoorX && playerY == randDoorY) {
+          
+                try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+
+                enviromentCheck.changeEnv("inside");
+                return; 
+            }
+        } else if (env.equals("inside")) {
             drawMapInside(playerX, playerY, maxX, maxY);
-            int[] newPos = playerMove(playerX, playerY, scanner,maxX,maxY);
-            playerX = newPos[0];
-            playerY = newPos[1];
         }
-         
-        break;
-        default:
-            break;
-       }
-       
 
+        int[] newPos = playerMove(playerX, playerY, scanner, maxX, maxY);
+        playerX = newPos[0];
+        playerY = newPos[1];
     }
+}
+
     static void drawMapOut(int playerX, int playerY, int maxX, int maxY, Random random,int randDoorX, int randDoorY){
         int drawX = 0;
         int drawY = 0;
@@ -55,6 +53,8 @@ public class RpgMap {
             for(int j = 0; j < maxX; j++){
                if(drawX == playerX && drawY == playerY && drawX == randDoorX && drawY == randDoorY){
                 System.out.print("[X]");
+               
+                
                }
                else if(drawX == playerX && drawY == playerY){
                 System.out.print(" x ");
@@ -70,7 +70,15 @@ public class RpgMap {
             System.out.println();
             drawY++;
         }
-
+        if (playerX== randDoorX && playerY == randDoorY) {
+        try{
+         Thread.sleep(500);
+         }catch(InterruptedException e){
+            e.printStackTrace();
+         }
+        enviromentCheck.changeEnv("inside"); // ändrar klassvariabeln
+    return;
+        }
     }
      static void drawMapInside(int playerX, int playerY, int maxX, int maxY){
         int drawX = 0;
