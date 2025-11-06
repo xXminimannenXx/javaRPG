@@ -76,7 +76,7 @@ public class RpgMap {
          }catch(InterruptedException e){
             e.printStackTrace();
          }
-        enviromentCheck.changeEnv("inside"); // ändrar klassvariabeln
+        enviromentCheck.changeEnv("inside"); 
     return;
         }
     }
