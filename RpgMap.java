@@ -26,7 +26,7 @@ public class RpgMap {
         if (env.equals("outside")) {
             drawMapOut(playerX, playerY, maxX, maxY,random, randDoorX, randDoorY);
 
-            // Om spelaren står på dörren
+          
             if (playerX == randDoorX && playerY == randDoorY) {
           
                 try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
