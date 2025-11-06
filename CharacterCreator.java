@@ -1,4 +1,4 @@
-package rpgGame;
+
 
 import java.io.FileWriter;
 import java.io.IOException; // Import IOException to handle errors
