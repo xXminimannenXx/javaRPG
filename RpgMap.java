@@ -16,11 +16,16 @@ public class RpgMap {
     int maxY = roomSize;
     int randDoorX = random.nextInt(maxX);
     int randDoorY = random.nextInt(maxY);
-    do{
-        randDoorX = random.nextInt(maxX);
-        randDoorY = random.nextInt(maxY);
-    }while (randDoorX == 0 && randDoorY == 0);
-        
+    int randChestX = random.nextInt(maxX);
+    int randChestY = random.nextInt(maxY);
+        do{
+            randDoorX = random.nextInt(maxX);
+            randDoorY = random.nextInt(maxY);
+        }while (randDoorX == 0 && randDoorY == 0);
+        do{
+            randChestX = random.nextInt(maxX);
+            randChestY = random.nextInt(maxY);
+        }while (randChestX == 0 && randChestY == 0);
     
 
     while (running) {
