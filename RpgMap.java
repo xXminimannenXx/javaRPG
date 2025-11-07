@@ -16,6 +16,12 @@ public class RpgMap {
     int maxY = roomSize;
     int randDoorX = random.nextInt(maxX);
     int randDoorY = random.nextInt(maxY);
+    do{
+        randDoorX = random.nextInt(maxX);
+        randDoorY = random.nextInt(maxY);
+    }while (randDoorX == 0 && randDoorY == 0);
+        
+    
 
     while (running) {
         String env = enviromentCheck.envCheck();
