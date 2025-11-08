@@ -1,7 +1,9 @@
 import java.util.Random;
 import java.io.FileWriter;
 import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class chestLogic {
@@ -29,6 +31,7 @@ public class chestLogic {
                 System.out.print("------------------------\n");
                 System.out.print("|You got a healt potion|\n");
                 System.out.print("------------------------\n"); 
+                increaseStat("SavedCharacter.txt", "hp", 1);
                 return;
                 
         
@@ -37,6 +40,55 @@ public class chestLogic {
         }
 
     }
-    
+    //100% inte chatgpt va absoult inte lite lat
+     public static void increaseStat(String fileName, String stat, int amount) {
+        ArrayList<String> lines = new ArrayList<>();
 
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Kunde inte läsa filen: " + e.getMessage());
+            return;
+        }
+
+        if (lines.size() < 5) {
+            System.out.println("Felaktigt format i filen!");
+            return;
+        }
+
+        // index: 0=name, 1=hp, 2=agility, 3=intelligence, 4=strength
+        switch (stat.toLowerCase()) {
+            case "hp":
+                lines.set(1, Integer.toString(Integer.parseInt(lines.get(1)) + amount));
+                break;
+            case "agility":
+                lines.set(2, Integer.toString(Integer.parseInt(lines.get(2)) + amount));
+                break;
+            case "intelligence":
+                lines.set(3, Integer.toString(Integer.parseInt(lines.get(3)) + amount));
+                break;
+            case "strength":
+                lines.set(4, Integer.toString(Integer.parseInt(lines.get(4)) + amount));
+                break;
+            default:
+                System.out.println("Okänd stat: " + stat);
+                return;
+        }
+
+        // Skriv tillbaka till filen
+        try (FileWriter writer = new FileWriter(fileName)) {
+            for (String s : lines) {
+                writer.write(s + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Kunde inte spara filen: " + e.getMessage());
+        }
+
+        System.out.println(stat + " ökade med +" + amount + "!");
+    }
 }
+
+
