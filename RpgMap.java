@@ -47,7 +47,11 @@ public class RpgMap {
                 return; 
             }
         } else if (env.equals("inside")) {
-            drawMapInside(playerX, playerY, maxX, maxY);
+            drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY);
+            if(randChestX == playerX && randChestY == playerY){
+                chestLogic.runChest();
+                return;
+            }
         }
 
         int[] newPos = playerMove(playerX, playerY, scanner, maxX, maxY);
@@ -92,7 +96,7 @@ public class RpgMap {
     return;
         }
     }
-     static void drawMapInside(int playerX, int playerY, int maxX, int maxY){
+     static void drawMapInside(int playerX, int playerY, int maxX, int maxY,int randChestX, int randChestY){
         int drawX = 0;
         int drawY = 0;
         for (int i = 0; i < maxY; i++){
@@ -100,6 +104,10 @@ public class RpgMap {
             for(int j = 0; j < maxX; j++){
                 if(drawX == playerX && drawY == playerY){
                     System.out.print("[X]");
+                }
+                else if(drawX == randChestX && drawY == randChestY){
+                    System.out.print("[=]");
+
                 }
                 else{
                 System.out.print("[ ]");
