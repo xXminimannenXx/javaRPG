@@ -9,6 +9,7 @@ public class chestLogic {
     public static void runChest(){
        Random random = new Random();
         //int lootRand = random.nextInt(0)+1;
+        //den över är rätta men den under är nun för bug test grejs
         int lootRand = 1;
         System.out.print("\033[H\033[2J");
         loot(lootRand);
