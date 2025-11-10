@@ -10,9 +10,8 @@ public class chestLogic {
     //loot är tänkt att ge +1 på den staten man får de i rn på potionsen, kan också ha olika variationer på antinen saker så typ intellegence kan vara en bok för +1 etc
     public static void runChest(){
        Random random = new Random();
-        //int lootRand = random.nextInt(0)+1;
-        //den över är rätta men den under är nun för bug test grejs
-        int lootRand = 1;
+       int lootRand = random.nextInt(4)+1;
+       
         System.out.print("\033[H\033[2J");
         loot(lootRand);
          try{
@@ -33,8 +32,25 @@ public class chestLogic {
                 System.out.print("------------------------\n"); 
                 increaseStat("SavedCharacter.txt", "hp", 1);
                 return;
-                
-        
+              case 2:
+                System.out.print("------------------------\n");
+                System.out.print("|You got a rabbits foot|\n");
+                System.out.print("------------------------\n"); 
+                increaseStat("SavedCharacter.txt", "agility", 1);
+                return;
+          
+            case 3:
+                System.out.print("-----------------------------\n");
+                System.out.print("|You got a tome of knowladge|\n");
+                System.out.print("-----------------------------\n"); 
+                increaseStat("SavedCharacter.txt", "intelligence", 1);
+                return;
+            case 4:
+                System.out.print("------------------------\n");
+                System.out.print("|You got a strengh rune|\n");
+                System.out.print("------------------------\n"); 
+                increaseStat("SavedCharacter.txt", "strength", 1);
+                return;
             default:
                 break;
         }
@@ -87,7 +103,7 @@ public class chestLogic {
             System.out.println("Kunde inte spara filen: " + e.getMessage());
         }
 
-        System.out.println(stat + " ökade med +" + amount + "!");
+       // System.out.println(stat + " ökade med +" + amount + "!");
     }
 }
 
