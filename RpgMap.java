@@ -17,7 +17,7 @@ public class RpgMap {
     int maxY = roomSize;
     int randDoorX = random.nextInt(maxX);
     int randDoorY = random.nextInt(maxY);
-    //TODO: göra en kista som om man går på gör combat och sedan får en reward typ guld eller items + få xp av combat så man kan levla
+    //TODO: göra fiende
     int randChestX = random.nextInt(maxX);
     int randChestY = random.nextInt(maxY);
         do{
