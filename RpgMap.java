@@ -3,7 +3,8 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class RpgMap {
-    
+   
+
  public static void runMap() {
     int playerX = 0;
     int playerY = 0;
@@ -120,7 +121,14 @@ public class RpgMap {
 
     }
         static int[] playerMove(int playerX, int playerY, Scanner scanner, int maxX, int maxY) {
-        char userInput = Character.toLowerCase(scanner.nextLine().charAt(0));
+       String input = scanner.nextLine();
+
+        if (input.length() == 0) {
+         // bara Enter
+         return new int[]{playerX, playerY};
+         }
+
+        char userInput = Character.toLowerCase(input.charAt(0));
 
         switch (userInput) {
             case 'w':

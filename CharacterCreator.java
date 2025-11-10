@@ -34,6 +34,10 @@ public class CharacterCreator {
             System.out.println("P to proceed\n");
             redrawOnClear();
             userInput = scanner.nextLine().trim().toLowerCase();
+             if (userInput.length() == 0) {
+            // bara Enter
+            userInput = scanner.nextLine().trim().toLowerCase();
+            }
 
             switch (userInput){
                 case "w": // up
@@ -88,7 +92,10 @@ public class CharacterCreator {
         System.out.print("What is your name, adventurer?: ");
         
         String playerName = scanner.nextLine();
-
+        while(playerName.isEmpty()) {
+            System.out.print("I think you forgot to give me a name: ");
+            playerName = scanner.nextLine();
+        }
         try { // w3schools min älskade
             FileWriter myWriter = new FileWriter("SavedCharacter.txt");
             

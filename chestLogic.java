@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+ 
 public class chestLogic {
     //loot är tänkt att ge +1 på den staten man får de i rn på potionsen, kan också ha olika variationer på antinen saker så typ intellegence kan vara en bok för +1 etc
     public static void runChest(){
