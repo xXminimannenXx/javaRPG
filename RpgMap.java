@@ -17,7 +17,41 @@ public class RpgMap {
     int maxY = roomSize;
     int randDoorX = random.nextInt(maxX);
     int randDoorY = random.nextInt(maxY);
-    //TODO: göra fiende
+   //fiende spawn logic klar måste fixa fiende logik nu bara så om man rör dem så händer något plus kanske gå funktion
+   //ide för stats, hp = hp, str = dmg/slag, int = xp man får efter varje vinst, dex = om man får slå först
+   int enemyAmount = random.nextInt(4) + 1;
+    int[] randEnemyX = new int[enemyAmount];
+    int[] randEnemyY = new int[enemyAmount];
+
+    for (int i = 0; i < enemyAmount; i++) {
+    int x, y;
+    boolean unique;
+
+    do {
+        unique = true;
+        x = random.nextInt(maxX);
+        y = random.nextInt(maxY);
+
+        // Kolla att positionen inte är (0,0)
+        if (x == 0 && y == 0) {
+            unique = false;
+        }
+
+        // Kolla att den inte är samma som en tidigare fiende
+        for (int j = 0; j < i; j++) {
+            if (randEnemyX[j] == x && randEnemyY[j] == y) {
+                unique = false;
+                break;
+            }
+        }
+
+    } while (!unique);
+
+ 
+    randEnemyX[i] = x;
+    randEnemyY[i] = y;
+}
+
     int randChestX = random.nextInt(maxX);
     int randChestY = random.nextInt(maxY);
         do{
