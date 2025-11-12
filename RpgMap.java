@@ -62,8 +62,14 @@ public class RpgMap {
         } else if (env.equals("inside")) {
             drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY, randEnemyX, randEnemyY);
             if(randChestX == playerX && randChestY == playerY){
+                //if(enemykilled)
                 chestLogic.runChest();
                 return;
+            }
+            if(playerX == randEnemyX && playerY == randEnemyY){
+                //enemy.startCombat();
+                return;
+
             }
         }
 
