@@ -19,41 +19,15 @@ public class RpgMap {
     int randDoorY = random.nextInt(maxY);
    //fiende spawn logic klar måste fixa fiende logik nu bara så om man rör dem så händer något plus kanske gå funktion
    //ide för stats, hp = hp, str = dmg/slag, int = xp man får efter varje vinst, dex = om man får slå först
-   int enemyAmount = random.nextInt(4) + 1;
-    int[] randEnemyX = new int[enemyAmount];
-    int[] randEnemyY = new int[enemyAmount];
 
-    for (int i = 0; i < enemyAmount; i++) {
-    int x, y;
-    boolean unique;
-
-    do {
-        unique = true;
-        x = random.nextInt(maxX);
-        y = random.nextInt(maxY);
-
-        // Kolla att positionen inte är (0,0)
-        if (x == 0 && y == 0) {
-            unique = false;
-        }
-
-        // Kolla att den inte är samma som en tidigare fiende
-        for (int j = 0; j < i; j++) {
-            if (randEnemyX[j] == x && randEnemyY[j] == y) {
-                unique = false;
-                break;
-            }
-        }
-
-    } while (!unique);
-
+    int randEnemyX = random.nextInt(maxX); 
+    int randEnemyY = random.nextInt(maxY);
  
-    randEnemyX[i] = x;
-    randEnemyY[i] = y;
-}
 
+  
     int randChestX = random.nextInt(maxX);
     int randChestY = random.nextInt(maxY);
+
         do{
             randDoorX = random.nextInt(maxX);
             randDoorY = random.nextInt(maxY);
@@ -62,6 +36,10 @@ public class RpgMap {
             randChestX = random.nextInt(maxX);
             randChestY = random.nextInt(maxY);
         }while (randChestX == 0 && randChestY == 0);
+        do{
+            randEnemyX = random.nextInt(maxX);
+            randEnemyY = random.nextInt(maxY);
+        }while(randEnemyX == 0 && randEnemyY == 0 || randEnemyX == randChestX && randEnemyY == randChestY);
     
 
     while (running) {
@@ -82,7 +60,7 @@ public class RpgMap {
                 return; 
             }
         } else if (env.equals("inside")) {
-            drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY);
+            drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY, randEnemyX, randEnemyY);
             if(randChestX == playerX && randChestY == playerY){
                 chestLogic.runChest();
                 return;
@@ -131,7 +109,7 @@ public class RpgMap {
     return;
         }
     }
-     static void drawMapInside(int playerX, int playerY, int maxX, int maxY,int randChestX, int randChestY){
+     static void drawMapInside(int playerX, int playerY, int maxX, int maxY,int randChestX, int randChestY, int randEnemyX, int randEnemyY){
         int drawX = 0;
         int drawY = 0;
         for (int i = 0; i < maxY; i++){
@@ -143,6 +121,9 @@ public class RpgMap {
                 else if(drawX == randChestX && drawY == randChestY){
                     System.out.print("[=]");
 
+                }
+                else if(drawX == randEnemyX && randEnemyY == drawY){
+                    System.out.print("[¤]");
                 }
                 else{
                 System.out.print("[ ]");
