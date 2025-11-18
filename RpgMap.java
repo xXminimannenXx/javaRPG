@@ -68,7 +68,7 @@ public class RpgMap {
             }
             if(playerX == randEnemyX && playerY == randEnemyY){
                 //enemy.startCombat();
-                return;
+               
 
             }
         }
