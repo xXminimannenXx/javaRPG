@@ -4,14 +4,43 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class combatLogic {
-    
-  
-        
+    private static int enemyHP;
+    private static int enemyAGL;
+    private static int enemySTR;
+    private static boolean generated = false;
+
+        public static int getEnemyStats(String stat){
+           
+        if (!generated) {
+            Random random = new Random();
+
+            enemyHP = random.nextInt(5) + 3;
+            enemyAGL = random.nextInt(5) + 3;
+            enemySTR = random.nextInt(5) + 3;
+
+            generated = true;
+        }
+
+            switch (stat) {
+                case "HP":
+                    return enemyHP;
+                case "AGL":
+                return enemyAGL;
+                case "STR":
+                return enemySTR;
+                default:
+                    return -1;
+            }
+
+
+
+
+        }
 
      
         public static void firstHit(int enemyAGL, int playerAGL){
             if(playerAGL >= enemyAGL){
-                //spelare slå först
+               playerAttack(getEnemyStats("HP"),getPlayerSTR());
 
             }
             else{
@@ -34,12 +63,8 @@ public class combatLogic {
         }
         public static void combat(){
             boolean combatRun = true;
-            Random random = new Random();
-            int enemyHP, enemyAGL, enemySTR;
-            enemyHP = random.nextInt(5)+3;
-            enemyAGL = random.nextInt(5)+3;
-            enemySTR = random.nextInt(5)+3;
-            firstHit(enemyAGL, getPlayerAGL());
+          
+            firstHit(getEnemyStats("AGL"), getPlayerAGL());
             while (combatRun) {
                 
             }
