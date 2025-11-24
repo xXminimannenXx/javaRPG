@@ -41,7 +41,7 @@ public class combatLogic {
         public static void firstHit(int enemyAGL, int playerAGL){
             if(playerAGL >= enemyAGL){
                playerAttack(getEnemyStats("HP"),getPlayerSTR());
-
+                
             }
             else{
                 //fiende slå först
@@ -61,9 +61,9 @@ public class combatLogic {
         public static void xpGain(int gainedXP){
             //få xp om man har mer xp än vad som levelREQ calla levelUP script
         }
-        public static void combat(){
+        public static boolean combat(){
             boolean combatRun = true;
-          
+            boolean win = true;
             firstHit(getEnemyStats("AGL"), getPlayerAGL());
             while (combatRun) {
                 
@@ -71,8 +71,39 @@ public class combatLogic {
 
 
 
+            if(win == true){
+                return true;
+
+            }
+            else{
+                return false;
+            }
+        }
+        public static void updatePlayerHP(int newHP){
+            try(BufferedReader br = new BufferedReader(new FileReader("SavedCharacter.txt"))) {
+            
+
+
+            }catch(IOException e){
+                 e.printStackTrace();
+            }
 
         }
+        public static void updateEnemyHP(int newHP){
+            enemyHP = newHP;
+
+
+        }
+
+
+
+
+
+
+
+
+
+
        public static int getPlayerHp() {
     try (BufferedReader br = new BufferedReader(new FileReader("SavedCharacter.txt"))) {
         String line;
