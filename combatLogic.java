@@ -48,13 +48,14 @@ public class combatLogic {
                 
             }
             else{
-                //fiende slå först
+                enemyAttack(getPlayerHp(), getEnemyStats("STR"));
             }
             
         }
         public static int playerAttack(int enemyHP, int playerSTR){
 
             enemyHP -=playerSTR;
+            System.out.print("the enemy has "  + getEnemyStats("HP") + " Hp left");
             return enemyHP;
 
         }
@@ -63,9 +64,7 @@ public class combatLogic {
             updatePlayerHP(playerHP);
             return playerHP;
         }
-        public static void xpGain(int gainedXP){
-            //få xp om man har mer xp än vad som levelREQ calla levelUP script
-        }
+      
         public static boolean combat(){
             boolean combatRun = true;
             boolean win = true;

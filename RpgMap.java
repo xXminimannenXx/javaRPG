@@ -50,7 +50,7 @@ public class RpgMap {
 
         if (env.equals("outside")) {
             drawMapOut(playerX, playerY, maxX, maxY,random, randDoorX, randDoorY);
-
+            
           
             if (playerX == randDoorX && playerY == randDoorY) {
           
@@ -60,15 +60,17 @@ public class RpgMap {
                 return; 
             }
         } else if (env.equals("inside")) {
+            boolean hasWon = false;
             drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY, randEnemyX, randEnemyY);
             if(randChestX == playerX && randChestY == playerY){
-                //if(enemykilled)
+                if(hasWon){
                 chestLogic.runChest();
                 return;
+                }
             }
             if(playerX == randEnemyX && playerY == randEnemyY){
-                //enemy.startCombat();
-               
+                
+                hasWon = combatLogic.combat();
 
             }
         }
