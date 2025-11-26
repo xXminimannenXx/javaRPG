@@ -42,43 +42,54 @@ public class RpgMap {
         }while(randEnemyX == 0 && randEnemyY == 0 || randEnemyX == randChestX && randEnemyY == randChestY);
     
 
-    while (running) {
-        String env = enviromentCheck.envCheck();
+  boolean hasWon = false;
 
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+while (running) {
+    String env = enviromentCheck.envCheck();
 
-        if (env.equals("outside")) {
-            drawMapOut(playerX, playerY, maxX, maxY,random, randDoorX, randDoorY);
-            
-          
-            if (playerX == randDoorX && playerY == randDoorY) {
-          
-                try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
 
-                enviromentCheck.changeEnv("inside");
-                return; 
-            }
-        } else if (env.equals("inside")) {
-            boolean hasWon = false;
-            drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY, randEnemyX, randEnemyY);
-            if(randChestX == playerX && randChestY == playerY){
-                if(hasWon){
+    if (env.equals("outside")) {
+        drawMapOut(playerX, playerY, maxX, maxY,random, randDoorX, randDoorY);
+
+        if (playerX == randDoorX && playerY == randDoorY) {
+            try { Thread.sleep(500); } catch (InterruptedException e) { }
+            enviromentCheck.changeEnv("inside");
+            return;
+        }
+    }
+
+    else if (env.equals("inside")) {
+
+        // ❗ hasWon finns kvar nu
+        drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY, randEnemyX, randEnemyY);
+
+        // ---- Öppna kista ----
+        if (playerX == randChestX && playerY == randChestY) {
+            if (hasWon) {
                 chestLogic.runChest();
                 return;
-                }
-            }
-            if(playerX == randEnemyX && playerY == randEnemyY){
-                
-                hasWon = combatLogic.combat();
-
+            } else {
+                System.out.println("Du måste besegra fienden först!");
             }
         }
 
-        int[] newPos = playerMove(playerX, playerY, scanner, maxX, maxY);
-        playerX = newPos[0];
-        playerY = newPos[1];
+        // ---- Starta strid ----
+        if (playerX == randEnemyX && playerY == randEnemyY){
+    hasWon = combatLogic.combat();
+    if (hasWon) {
+        randEnemyX = -999;
+        randEnemyY = -999;
     }
+}
+
+    }
+
+    int[] newPos = playerMove(playerX, playerY, scanner, maxX, maxY);
+    playerX = newPos[0];
+    playerY = newPos[1];
+}
 }
 
     static void drawMapOut(int playerX, int playerY, int maxX, int maxY, Random random,int randDoorX, int randDoorY){
