@@ -13,115 +13,113 @@ public class combatLogic {
     private static int enemySTR;
     private static boolean generated = false;
 
-        public static int getEnemyStats(String stat){
-           
+    // ===========================================================
+    // GET ENEMY STATS
+    // ===========================================================
+    public static int getEnemyStats(String stat) {
         if (!generated) {
             Random random = new Random();
-
             enemyHP = random.nextInt(5) + 3;
             enemyAGL = random.nextInt(5) + 3;
             enemySTR = random.nextInt(5) + 3;
-
             generated = true;
         }
 
-            switch (stat) {
-                case "HP":
-                    return enemyHP;
-                case "AGL":
-                return enemyAGL;
-                case "STR":
-                return enemySTR;
-                default:
-                    return -1;
+        switch (stat) {
+            case "HP": return enemyHP;
+            case "AGL": return enemyAGL;
+            case "STR": return enemySTR;
+        }
+        return -1;
+    }
+
+    // ===========================================================
+    // PLAYER ATTACK
+    // ===========================================================
+    public static void playerAttack() {
+        int playerSTR = getPlayerSTR();
+        enemyHP -= playerSTR;   // MINSKA PÅ RIKTIGT
+
+        System.out.println("Du attackerar fienden!");
+        System.out.println("Du gör " + playerSTR + " skada!");
+        System.out.println("Fienden har nu " + enemyHP + " HP kvar.\n");
+    }
+
+    // ===========================================================
+    // ENEMY ATTACK
+    // ===========================================================
+    public static void enemyAttack() {
+        int newHP = getPlayerHp() - enemySTR;
+        updatePlayerHP(newHP - getPlayerHp()); // bara skillnaden
+
+        System.out.println("Fienden attackerar!");
+        System.out.println("Fienden gör " + enemySTR + " skada!");
+        System.out.println("Du har nu " + newHP + " HP kvar.\n");
+    }
+
+    // ===========================================================
+    // FIRST HIT
+    // ===========================================================
+    public static boolean playerStarts() {
+        int playerAGL = getPlayerAGL();
+        int eAGL = getEnemyStats("AGL");
+
+        return playerAGL >= eAGL;
+    }
+
+    // ===========================================================
+    // COMBAT LOOP
+    // ===========================================================
+    public static boolean combat() {
+        boolean playerTurn = playerStarts();
+        boolean fighting = true;
+
+        System.out.println("\n--- STRIDEN BÖRJAR! ---\n");
+
+        while (fighting) {
+
+            if (playerTurn) {
+                playerAttack();
+            } else {
+                enemyAttack();
             }
 
-
-
-
-        }
-
-     
-        public static void firstHit(int enemyAGL, int playerAGL){
-            if(playerAGL >= enemyAGL){
-               playerAttack(getEnemyStats("HP"),getPlayerSTR());
-                
-            }
-            else{
-                enemyAttack(getPlayerHp(), getEnemyStats("STR"));
-            }
-            
-        }
-        public static int playerAttack(int enemyHP, int playerSTR){
-
-            enemyHP -=playerSTR;
-            System.out.print("the enemy has "  + getEnemyStats("HP") + " Hp left");
-            return enemyHP;
-
-        }
-        public static int enemyAttack(int playerHP, int enemySTR){
-            playerHP -= enemySTR;
-            updatePlayerHP(playerHP);
-            return playerHP;
-        }
-      
-        public static boolean combat(){
-            boolean combatRun = true;
-            boolean win = true;
-            boolean playerTurn = true;
-            firstHit(getEnemyStats("AGL"), getPlayerAGL());
-            while (combatRun) {
-                if(getPlayerHp() > 0 && getEnemyStats("HP") > 0){
-                    if(playerTurn){
-                        playerAttack(getEnemyStats("HP"), getPlayerSTR());
-                            playerTurn = false;
-                        }
-                    if(!playerTurn){
-                        enemyAttack(getPlayerHp(),getEnemyStats("STR"));
-                        playerTurn = true;
-
-                    }
-
-
-                    }
-                    if(getPlayerHp() < 0){
-                       
-                        combatRun = false;
-                        win = false;
-                         return win;
-                    }  
-                    else if(getEnemyStats("HP")< 0){
-                        combatRun = false;
-                        win = true;
-                        return win;
-
-
-                    }
-                    else{
-                        combatRun = true;
-                    }
-
-                }
-            
-        
-
-
-            if(win == true){
+            // ===============================
+            // CHECK IF SOMEONE IS DEAD
+            // ===============================
+            if (enemyHP <= 0) {
+                System.out.println("Du besegrade fienden!\n");
+                resetEnemy();
                 return true;
-
             }
-            else{
+
+            if (getPlayerHp() <= 0) {
+                System.out.println("Du dog...\n");
+                resetEnemy();
                 return false;
             }
+
+            playerTurn = !playerTurn; // byt tur
         }
-        public static void updatePlayerHP(int newHP){
-           changePlayerStat(2, newHP);
-        }
-        public static void updateEnemyHP(int newHP){
-            enemyHP = newHP;
+        return false;
+    }
+
+    // ===========================================================
+    // RESET ENEMY FOR NEXT FIGHT
+    // ===========================================================
+    private static void resetEnemy() {
+        generated = false;
+    }
+
+    // ===========================================================
+    // UPDATE PLAYER HP KORREKT
+    // ===========================================================
+    public static void updatePlayerHP(int hpDelta) {
+        // hpDelta är en förändring, t.ex. -3
+        changePlayerStat(2, hpDelta);
+    }
 
 
-        }
 
 
 
