@@ -62,10 +62,10 @@ while (running) {
 
     else if (env.equals("inside")) {
 
-        // ❗ hasWon finns kvar nu
+      
         drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY, randEnemyX, randEnemyY);
 
-        // ---- Öppna kista ----
+       
         if (playerX == randChestX && playerY == randChestY) {
             if (hasWon) {
                 chestLogic.runChest();
@@ -75,7 +75,7 @@ while (running) {
             }
         }
 
-        // ---- Starta strid ----
+      
         if (playerX == randEnemyX && playerY == randEnemyY){
     hasWon = combatLogic.combat();
     if (hasWon) {

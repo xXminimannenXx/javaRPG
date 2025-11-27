@@ -96,6 +96,8 @@ public class combatLogic {
             if (getPlayerHp() <= 0) {
                 System.out.println("Du dog...\n");
                 resetEnemy();
+                System.out.println("Tack att du ville spela, starta om för att spela igen :)");
+                System.exit(0);
                 return false;
             }
 
@@ -118,17 +120,6 @@ public class combatLogic {
         // hpDelta är en förändring, t.ex. -3
         changePlayerStat(2, hpDelta);
     }
-
-
-
-
-
-
-
-
-
-
-
 
        public static int getPlayerHp() {
     try (BufferedReader br = new BufferedReader(new FileReader("SavedCharacter.txt"))) {

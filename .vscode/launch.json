@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Rpggame",
+            "request": "launch",
+            "mainClass": "Rpggame",
+            "projectName": "javaRPG_fa50c29d"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
