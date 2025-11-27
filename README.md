@@ -5,6 +5,6 @@ w a s d - movment
 e - exit
 (you also have to press enter after each command)
 
-the game is in swenglish excuse me (Anton) for that :)
+the game is in swenglish excuse me (Anton) for that :) (now fixed and in full english)
 
 hope you enjoy it and please give me feedback as it is one of my first bigger projects in java.

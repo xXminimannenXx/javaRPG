@@ -71,7 +71,7 @@ while (running) {
                 chestLogic.runChest();
                 return;
             } else {
-                System.out.println("Du måste besegra fienden först!");
+                System.out.println("You have to defeat the enemy first!");
             }
         }
 

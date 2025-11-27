@@ -36,9 +36,9 @@ public class combatLogic {
         int playerSTR = getPlayerSTR();
         enemyHP -= playerSTR;   // MINSKA PÅ RIKTIGT
 
-        System.out.println("Du attackerar fienden!");
-        System.out.println("Du gör " + playerSTR + " skada!");
-        System.out.println("Fienden har nu " + enemyHP + " HP kvar.\n");
+        System.out.println("You attack the enemy!"); 
+        System.out.println("You deal " + playerSTR + " DMG!");
+        System.out.println("The enemy has " + enemyHP + " HP left.\n");
     }
 
    
@@ -46,9 +46,9 @@ public class combatLogic {
         int newHP = getPlayerHp() - enemySTR;
         updatePlayerHP(newHP - getPlayerHp()); // bara skillnaden
 
-        System.out.println("Fienden attackerar!");
-        System.out.println("Fienden gör " + enemySTR + " skada!");
-        System.out.println("Du har nu " + newHP + " HP kvar.\n");
+        System.out.println("Enemy attacks!");
+        System.out.println("Enemy deals " + enemySTR + " DMG!");
+        System.out.println("You now have " + newHP + " HP left.\n");
     }
 
     public static boolean playerStarts() {
@@ -63,7 +63,7 @@ public class combatLogic {
         boolean playerTurn = playerStarts();
         boolean fighting = true;
 
-        System.out.println("\n--- STRIDEN BÖRJAR! ---\n");
+        System.out.println("\n--- Combat Start! ---\n");
 
         while (fighting) {
 
@@ -75,15 +75,15 @@ public class combatLogic {
 
             
             if (enemyHP <= 0) {
-                System.out.println("Du besegrade fienden!\n");
+                System.out.println("You defeated the enemy!\n");
                 resetEnemy();
                 return true;
             }
 
             if (getPlayerHp() <= 0) {
-                System.out.println("Du dog...\n");
+                System.out.println("You died...\n");
                 resetEnemy();
-                System.out.println("Tack att du ville spela, starta om för att spela igen :)");
+                System.out.println("Thank you for playing, restart to play again :)");
                 System.exit(0);
                 return false;
             }
