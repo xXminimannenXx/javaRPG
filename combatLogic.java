@@ -13,7 +13,7 @@ public class combatLogic {
     private static int enemySTR;
     private static boolean generated = false;
 
-    
+        
     public static int getEnemyStats(String stat) {
         if (!generated) {
             Random random = new Random();
