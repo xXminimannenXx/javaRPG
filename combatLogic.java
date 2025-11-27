@@ -13,9 +13,7 @@ public class combatLogic {
     private static int enemySTR;
     private static boolean generated = false;
 
-    // ===========================================================
-    // GET ENEMY STATS
-    // ===========================================================
+    
     public static int getEnemyStats(String stat) {
         if (!generated) {
             Random random = new Random();
@@ -33,9 +31,7 @@ public class combatLogic {
         return -1;
     }
 
-    // ===========================================================
-    // PLAYER ATTACK
-    // ===========================================================
+   
     public static void playerAttack() {
         int playerSTR = getPlayerSTR();
         enemyHP -= playerSTR;   // MINSKA PÅ RIKTIGT
@@ -45,9 +41,7 @@ public class combatLogic {
         System.out.println("Fienden har nu " + enemyHP + " HP kvar.\n");
     }
 
-    // ===========================================================
-    // ENEMY ATTACK
-    // ===========================================================
+   
     public static void enemyAttack() {
         int newHP = getPlayerHp() - enemySTR;
         updatePlayerHP(newHP - getPlayerHp()); // bara skillnaden
@@ -57,9 +51,6 @@ public class combatLogic {
         System.out.println("Du har nu " + newHP + " HP kvar.\n");
     }
 
-    // ===========================================================
-    // FIRST HIT
-    // ===========================================================
     public static boolean playerStarts() {
         int playerAGL = getPlayerAGL();
         int eAGL = getEnemyStats("AGL");
@@ -67,9 +58,7 @@ public class combatLogic {
         return playerAGL >= eAGL;
     }
 
-    // ===========================================================
-    // COMBAT LOOP
-    // ===========================================================
+  
     public static boolean combat() {
         boolean playerTurn = playerStarts();
         boolean fighting = true;
@@ -84,9 +73,7 @@ public class combatLogic {
                 enemyAttack();
             }
 
-            // ===============================
-            // CHECK IF SOMEONE IS DEAD
-            // ===============================
+            
             if (enemyHP <= 0) {
                 System.out.println("Du besegrade fienden!\n");
                 resetEnemy();
@@ -106,16 +93,12 @@ public class combatLogic {
         return false;
     }
 
-    // ===========================================================
-    // RESET ENEMY FOR NEXT FIGHT
-    // ===========================================================
+    
     private static void resetEnemy() {
         generated = false;
     }
 
-    // ===========================================================
-    // UPDATE PLAYER HP KORREKT
-    // ===========================================================
+    
     public static void updatePlayerHP(int hpDelta) {
         // hpDelta är en förändring, t.ex. -3
         changePlayerStat(2, hpDelta);
