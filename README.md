@@ -14,4 +14,4 @@ xp system(finally making intellegence stat not useless)
 enemy scaling 
 more enviroments and hazards
 better rewards aswell as a inventory
-fix file struktur as a friend had problem launching the game because of it
+
