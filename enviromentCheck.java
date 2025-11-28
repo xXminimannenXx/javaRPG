@@ -1,4 +1,4 @@
-public class enviromentCheck {
+public class EnviromentCheck {
     
     private static String currentEnv = "outside"; 
 

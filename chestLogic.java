@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
  
-public class chestLogic {
+public class ChestLogic {
     //loot är tänkt att ge +1 på den staten man får de i rn på potionsen, kan också ha olika variationer på antinen saker så typ intellegence kan vara en bok för +1 etc
     public static void runChest(){
        Random random = new Random();
@@ -16,7 +16,7 @@ public class chestLogic {
         loot(lootRand);
          try{
                 Thread.sleep(1000);
-                enviromentCheck.changeEnv("outside");
+               EnviromentCheck.changeEnv("outside");
                 return;
                 }catch(InterruptedException e){
                       e.printStackTrace();

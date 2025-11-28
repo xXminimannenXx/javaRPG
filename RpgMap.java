@@ -45,7 +45,7 @@ public class RpgMap {
         boolean hasWon = false;
 
         while (running) {
-            String env = enviromentCheck.envCheck();
+            String env = EnviromentCheck.envCheck();
 
             System.out.print("\033[H\033[2J");
             System.out.flush();
@@ -57,7 +57,7 @@ public class RpgMap {
 
                 if (playerX == randDoorX && playerY == randDoorY) {
                     try { Thread.sleep(500); } catch (InterruptedException e) { }
-                    enviromentCheck.changeEnv("inside");
+                    EnviromentCheck.changeEnv("inside");
                     return;
                 }
             }
@@ -71,7 +71,7 @@ public class RpgMap {
         
                 if (playerX == randChestX && playerY == randChestY) {
                     if (hasWon) {
-                        chestLogic.runChest();
+                        ChestLogic.runChest();
                         return;
                     } else {
                         System.out.println("You have to defeat the enemy first!");
@@ -80,7 +80,7 @@ public class RpgMap {
 
         
                 if (playerX == randEnemyX && playerY == randEnemyY){
-                    hasWon = combatLogic.combat();
+                    hasWon = CombatLogic.combat();
                     if (hasWon) {
                         randEnemyX = -999;
                         randEnemyY = -999;
@@ -98,7 +98,7 @@ public class RpgMap {
 
     static void printPlayerStats(){
         for (int i = 2; i <= 5; i++){
-            System.out.print("[ " + combatLogic.getPlayerStat(i) + " ]");
+            System.out.print("[ " + GetPlayerStats.getPlayerStat(i) + " ]");
             
         }
         System.err.println(); // input under stats
@@ -136,7 +136,7 @@ public class RpgMap {
          }catch(InterruptedException e){
             e.printStackTrace();
          }
-        enviromentCheck.changeEnv("inside"); 
+        EnviromentCheck.changeEnv("inside"); 
     return;
         }
     }
