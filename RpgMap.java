@@ -5,28 +5,28 @@ import java.util.Random;
 public class RpgMap {
    
 
- public static void runMap() {
-    int playerX = 0;
-    int playerY = 0;
-    Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
-    boolean running = true;
+    public static void runMap() {
+        int playerX = 0;
+        int playerY = 0;
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        boolean running = true;
 
-    int roomSize = random.nextInt(8) + 3;
-    int maxX = roomSize;
-    int maxY = roomSize;
-    int randDoorX = random.nextInt(maxX);
-    int randDoorY = random.nextInt(maxY);
-   //fiende spawn logic klar måste fixa fiende logik nu bara så om man rör dem så händer något plus kanske gå funktion
-   //ide för stats, hp = hp, str = dmg/slag, int = xp man får efter varje vinst, dex = om man får slå först
+        int roomSize = random.nextInt(8) + 3;
+        int maxX = roomSize;
+        int maxY = roomSize;
+        int randDoorX = random.nextInt(maxX);
+        int randDoorY = random.nextInt(maxY);
+    //fiende spawn logic klar måste fixa fiende logik nu bara så om man rör dem så händer något plus kanske gå funktion
+    //ide för stats, hp = hp, str = dmg/slag, int = xp man får efter varje vinst, dex = om man får slå först
 
-    int randEnemyX = random.nextInt(maxX); 
-    int randEnemyY = random.nextInt(maxY);
- 
+        int randEnemyX = random.nextInt(maxX); 
+        int randEnemyY = random.nextInt(maxY);
+    
 
-  
-    int randChestX = random.nextInt(maxX);
-    int randChestY = random.nextInt(maxY);
+    
+        int randChestX = random.nextInt(maxX);
+        int randChestY = random.nextInt(maxY);
 
         do{
             randDoorX = random.nextInt(maxX);
@@ -42,55 +42,67 @@ public class RpgMap {
         }while(randEnemyX == 0 && randEnemyY == 0 || randEnemyX == randChestX && randEnemyY == randChestY);
     
 
-  boolean hasWon = false;
+        boolean hasWon = false;
 
-while (running) {
-    String env = enviromentCheck.envCheck();
+        while (running) {
+            String env = enviromentCheck.envCheck();
 
-    System.out.print("\033[H\033[2J");
-    System.out.flush();
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
 
-    if (env.equals("outside")) {
-        drawMapOut(playerX, playerY, maxX, maxY,random, randDoorX, randDoorY);
+            if (env.equals("outside")) {
+                drawMapOut(playerX, playerY, maxX, maxY,random, randDoorX, randDoorY);
+                
+                printPlayerStats();
 
-        if (playerX == randDoorX && playerY == randDoorY) {
-            try { Thread.sleep(500); } catch (InterruptedException e) { }
-            enviromentCheck.changeEnv("inside");
-            return;
-        }
-    }
-
-    else if (env.equals("inside")) {
-
-      
-        drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY, randEnemyX, randEnemyY);
-
-       
-        if (playerX == randChestX && playerY == randChestY) {
-            if (hasWon) {
-                chestLogic.runChest();
-                return;
-            } else {
-                System.out.println("You have to defeat the enemy first!");
+                if (playerX == randDoorX && playerY == randDoorY) {
+                    try { Thread.sleep(500); } catch (InterruptedException e) { }
+                    enviromentCheck.changeEnv("inside");
+                    return;
+                }
             }
-        }
+
+            else if (env.equals("inside")) {
 
       
-        if (playerX == randEnemyX && playerY == randEnemyY){
-    hasWon = combatLogic.combat();
-    if (hasWon) {
-        randEnemyX = -999;
-        randEnemyY = -999;
-    }
-}
+                drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY, randEnemyX, randEnemyY);
+                
+                printPlayerStats();
+        
+                if (playerX == randChestX && playerY == randChestY) {
+                    if (hasWon) {
+                        chestLogic.runChest();
+                        return;
+                    } else {
+                        System.out.println("You have to defeat the enemy first!");
+                    }
+                }
 
+        
+                if (playerX == randEnemyX && playerY == randEnemyY){
+                    hasWon = combatLogic.combat();
+                    if (hasWon) {
+                        randEnemyX = -999;
+                        randEnemyY = -999;
+                    }
+                }
+            }   
+
+
+            int[] newPos = playerMove(playerX, playerY, scanner, maxX, maxY);
+            playerX = newPos[0];
+            playerY = newPos[1];
+
+        }
     }
 
-    int[] newPos = playerMove(playerX, playerY, scanner, maxX, maxY);
-    playerX = newPos[0];
-    playerY = newPos[1];
-}
-}
+    static void printPlayerStats(){
+        for (int i = 2; i <= 5; i++){
+            System.out.print("[ " + combatLogic.getPlayerStat(i) + " ]");
+            
+        }
+        System.err.println(); // input under stats
+    }
 
     static void drawMapOut(int playerX, int playerY, int maxX, int maxY, Random random,int randDoorX, int randDoorY){
         int drawX = 0;
@@ -155,7 +167,8 @@ while (running) {
 
     }
         static int[] playerMove(int playerX, int playerY, Scanner scanner, int maxX, int maxY) {
-       String input = scanner.nextLine();
+        String input = scanner.nextLine();
+
 
         if (input.length() == 0) {
          // bara Enter

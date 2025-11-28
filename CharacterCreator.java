@@ -56,6 +56,13 @@ public class CharacterCreator {
                 }
                 break;
 
+                case "d": // right
+                if (USED_POINTS != TOTAL_POINTS) {
+                    USED_POINTS++;
+                    attributeValue[cursorLocation]++;
+                }
+                break;
+
                 case "p":
                 if(attributeValue[0] != 0) {
                     SaveCharacter();
@@ -67,15 +74,6 @@ public class CharacterCreator {
                     }catch(InterruptedException e){
                      e.printStackTrace();
                      }
-                }
-                
-                
-                break;
-
-                case "d": // right
-                if (USED_POINTS != TOTAL_POINTS) {
-                    USED_POINTS++;
-                    attributeValue[cursorLocation]++;
                 }
                 break;
 

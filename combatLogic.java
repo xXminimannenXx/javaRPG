@@ -8,196 +8,126 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class combatLogic {
-    private static int enemyHP;
-    private static int enemyAGL;
-    private static int enemySTR;
-    private static boolean generated = false;
 
-        
-    public static int getEnemyStats(String stat) {
-        if (!generated) {
+    // Enemy class for better structure
+    private static class Enemy {
+        int HP;
+        int AGL;
+        int STR;
+
+        Enemy() {
             Random random = new Random();
-            enemyHP = random.nextInt(5) + 3;
-            enemyAGL = random.nextInt(5) + 3;
-            enemySTR = random.nextInt(5) + 3;
-            generated = true;
+            this.HP = random.nextInt(5) + 3; // 3-7
+            this.AGL = random.nextInt(5) + 3;
+            this.STR = random.nextInt(5) + 3;
         }
-
-        switch (stat) {
-            case "HP": return enemyHP;
-            case "AGL": return enemyAGL;
-            case "STR": return enemySTR;
-        }
-        return -1;
     }
 
-   
-    public static void playerAttack() {
-        int playerSTR = getPlayerSTR();
-        enemyHP -= playerSTR;   // MINSKA PÅ RIKTIGT
+    private static Enemy enemy;
 
-        System.out.println("You attack the enemy!"); 
-        System.out.println("You deal " + playerSTR + " DMG!");
-        System.out.println("The enemy has " + enemyHP + " HP left.\n");
-    }
-
-   
-    public static void enemyAttack() {
-        int newHP = getPlayerHp() - enemySTR;
-        updatePlayerHP(newHP - getPlayerHp()); // bara skillnaden
-
-        System.out.println("Enemy attacks!");
-        System.out.println("Enemy deals " + enemySTR + " DMG!");
-        System.out.println("You now have " + newHP + " HP left.\n");
-    }
-
+    // Combat starts: determines turn order
     public static boolean playerStarts() {
-        int playerAGL = getPlayerAGL();
-        int eAGL = getEnemyStats("AGL");
-
-        return playerAGL >= eAGL;
+        int playerAGL = getPlayerStat(3); // AGL is line 3
+        return playerAGL >= getEnemy().AGL;
     }
 
-  
+    // Main combat loop
     public static boolean combat() {
+        enemy = new Enemy(); // generate a new enemy
         boolean playerTurn = playerStarts();
-        boolean fighting = true;
 
         System.out.println("\n--- Combat Start! ---\n");
 
-        while (fighting) {
-
+        while (true) {
             if (playerTurn) {
                 playerAttack();
             } else {
                 enemyAttack();
             }
 
-            
-            if (enemyHP <= 0) {
+            if (enemy.HP <= 0) {
                 System.out.println("You defeated the enemy!\n");
-                resetEnemy();
                 return true;
             }
 
-            if (getPlayerHp() <= 0) {
+            if (getPlayerStat(2) <= 0) { // HP is line 2
                 System.out.println("You died...\n");
-                resetEnemy();
                 System.out.println("Thank you for playing, restart to play again :)");
                 System.exit(0);
-                return false;
             }
 
-            playerTurn = !playerTurn; // byt tur
+            playerTurn = !playerTurn;
         }
-        return false;
     }
 
-    
-    private static void resetEnemy() {
-        generated = false;
+    // Player attacks enemy
+    private static void playerAttack() {
+        int playerSTR = getPlayerStat(5); // STR is line 5
+        enemy.HP -= playerSTR;
+
+        System.out.println("You attack the enemy!");
+        System.out.println("You deal " + playerSTR + " DMG!");
+        System.out.println("Enemy has " + enemy.HP + " HP left.\n");
     }
 
-    
-    public static void updatePlayerHP(int hpDelta) {
-        // hpDelta är en förändring, t.ex. -3
-        changePlayerStat(2, hpDelta);
+    // Enemy attacks player
+    private static void enemyAttack() {
+        int enemySTR = getEnemy().STR;
+        updatePlayerHP(-enemySTR);
+
+        System.out.println("Enemy attacks!");
+        System.out.println("Enemy deals " + enemySTR + " DMG!");
+        System.out.println("You now have " + getPlayerStat(2) + " HP left.\n");
     }
 
-       public static int getPlayerHp() {
-    try (BufferedReader br = new BufferedReader(new FileReader("SavedCharacter.txt"))) {
-        String line;
-        int lineNumber = 1;
+    // Update player's HP (or other stats if needed)
+    private static void updatePlayerHP(int delta) {
+        changePlayerStat(2, delta); // HP is line 2
+    }
 
-        while ((line = br.readLine()) != null) {
-            if (lineNumber == 2) { // rad 2
-                return Integer.parseInt(line);
-            }
-            lineNumber++;
+    // Get enemy instance (lazy initialization)
+    private static Enemy getEnemy() {
+        if (enemy == null) {
+            enemy = new Enemy();
         }
-
-    } catch (IOException e) {
-        e.printStackTrace();
+        return enemy;
     }
 
-    return -1; // om raden inte finns
-}
-
-        public static int getPlayerSTR(){
-              try (BufferedReader br = new BufferedReader(new FileReader("SavedCharacter.txt"))){
-                String line;
-                int lineNumber = 1;
-                while((line = br.readLine()) != null){
-                    if (lineNumber == 5){
-                        return Integer.parseInt(line);
-                    }
-                    lineNumber++;
-                }
-              
-            } catch (IOException e){
-                e.printStackTrace();
+    // Generic method to read a stat from file by line number (1-based)
+    public static int getPlayerStat(int lineNumber) {
+        try (BufferedReader br = new BufferedReader(new FileReader("SavedCharacter.txt"))) {
+            String line;
+            int current = 1;
+            while ((line = br.readLine()) != null) {
+                if (current == lineNumber) return Integer.parseInt(line);
+                current++;
             }
-            return -1;
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
         }
-        public static int getPlayerINT(){
-              try(BufferedReader br = new BufferedReader(new FileReader("SavedCharacter.txt"))){
-                String line;
-                int lineNumber = 1;
-                while((line = br.readLine()) != null){
-                    if(lineNumber == 4){
-                        return Integer.parseInt(line);
-                    }
-                    lineNumber++;
-                }
-              
-            } catch (IOException e){
-                e.printStackTrace();
-            }
         return -1;
-            
-        }
-        public static int getPlayerAGL(){
-              try(BufferedReader br = new BufferedReader(new FileReader("SavedCharacter.txt"))){
-               String line;
-               int lineNumber = 1;
-               while((line = br.readLine()) != null){
-                    if(lineNumber == 3){
-                        return Integer.parseInt(line);
-                    }
-                    lineNumber++;
-               }
-
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        return -1;
-        }
-       public static void changePlayerStat(int rad, int statChange) {
-    try {
-        // Read all lines into a List<String>
-        Path path = Paths.get("SavedCharacter.txt");
-        List<String> lines = Files.readAllLines(path);
-
-        // rad is 1-based, list is 0-based
-        int index = rad - 1;
-
-        // Safety check
-        if (index < 0 || index >= lines.size()) {
-            System.out.println("Invalid line number: " + rad);
-            return;
-        }
-
-        // Parse, modify, save
-        int value = Integer.parseInt(lines.get(index));
-        value += statChange;
-        lines.set(index, Integer.toString(value));
-
-        // Write changes back to file
-        Files.write(path, lines);
-
-    } catch (IOException e) {
-        e.printStackTrace();
     }
-}
 
+    // Change a stat in the file by line number
+    private static void changePlayerStat(int lineNumber, int delta) {
+        try {
+            Path path = Paths.get("SavedCharacter.txt");
+            List<String> lines = Files.readAllLines(path);
+
+            int index = lineNumber - 1; // 0-based
+            if (index < 0 || index >= lines.size()) {
+                System.out.println("Invalid line number: " + lineNumber);
+                return;
+            }
+
+            int value = Integer.parseInt(lines.get(index));
+            value += delta;
+            lines.set(index, Integer.toString(value));
+
+            Files.write(path, lines);
+
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
 }
