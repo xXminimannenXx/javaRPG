@@ -9,6 +9,13 @@
             "name": "Rpggame",
             "request": "launch",
             "mainClass": "Rpggame",
+            "projectName": "javaRPG_6bc4180a"
+        },
+        {
+            "type": "java",
+            "name": "Rpggame",
+            "request": "launch",
+            "mainClass": "Rpggame",
             "projectName": "javaRPG_fa50c29d"
         },
         {
