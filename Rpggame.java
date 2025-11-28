@@ -6,7 +6,7 @@ public class Rpggame {
         boolean running = true;
         helloMessage();
         CharacterCreator.userCharacterCreator();
-        enviromentCheck.changeEnv( "outside");
+        EnviromentCheck.changeEnv( "outside");
         while(running == true){
        
        
