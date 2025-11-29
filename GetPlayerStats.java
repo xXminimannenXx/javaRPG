@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-
+//Stat ordning HP,  AGL, INT, STR med namn på rad 1(/0 beronde på hur du tänker)
 public class GetPlayerStats {
      public static int getPlayerStat(int lineNumber) {
         try (BufferedReader br = new BufferedReader(new FileReader("SavedCharacter.txt"))) {

@@ -44,12 +44,7 @@ public class CombatLogic {
 
             if (enemy.HP <= 0) {
                 System.out.println("You defeated the enemy!\n");
-                try {
-                    Thread.sleep(500);
-                } catch (Exception e) {
-                    
-                }
-                System.out.print("\033[H\033[2J");
+            
                 XpSystem.getXP(getEnemy().XPGained);
                 return true;
             }
