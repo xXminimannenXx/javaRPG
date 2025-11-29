@@ -30,7 +30,7 @@ public class XpSystem {
         Scanner uInput = new Scanner(System.in); 
         GetPlayerStats.printPlayerStats();
         System.out.print("\n Brave adventurer you have gained enough expericence during your travles to incresse on of your stats with 1 point, enter the index of the stat you want to incress\n");
-        int userInput = uInput.nextInt();
+        int userInput = uInput.nextInt()+1;
         
         GetPlayerStats.changePlayerStat(userInput, 1);
         
