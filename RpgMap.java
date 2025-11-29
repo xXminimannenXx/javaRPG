@@ -53,7 +53,7 @@ public class RpgMap {
             if (env.equals("outside")) {
                 drawMapOut(playerX, playerY, maxX, maxY,random, randDoorX, randDoorY);
                 
-                printPlayerStats();
+                GetPlayerStats.printPlayerStats();
 
                 if (playerX == randDoorX && playerY == randDoorY) {
                     try { Thread.sleep(500); } catch (InterruptedException e) { }
@@ -67,7 +67,7 @@ public class RpgMap {
       
                 drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY, randEnemyX, randEnemyY);
                 
-                printPlayerStats();
+                GetPlayerStats.printPlayerStats();
         
                 if (playerX == randChestX && playerY == randChestY) {
                     if (hasWon) {
@@ -96,13 +96,7 @@ public class RpgMap {
         }
     }
 
-    static void printPlayerStats(){
-        for (int i = 2; i <= 5; i++){
-            System.out.print("[ " + GetPlayerStats.getPlayerStat(i) + " ]");
-            
-        }
-        System.err.println(); // input under stats
-    }
+  
 
     static void drawMapOut(int playerX, int playerY, int maxX, int maxY, Random random,int randDoorX, int randDoorY){
         int drawX = 0;
