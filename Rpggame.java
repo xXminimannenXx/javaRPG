@@ -1,6 +1,6 @@
 
 
-public class Rpggame {
+public class RpgGame {
 
      public static void main (String[] args){
         boolean running = true;
