@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class XpSystem {
     public static int currentXP = 0;
-    public static int neededXP = 50;
+    public static int neededXP = 1;
     public static int level = 1;
    
 

@@ -43,11 +43,12 @@ public class GetPlayerStats {
             e.printStackTrace();
         }
     }
-      static void printPlayerStats(){
+    
+    static void printPlayerStats(){
         for (int i = 2; i <= 5; i++){
             System.out.print("[ " + GetPlayerStats.getPlayerStat(i) + " ]");
             
         }
-        System.err.println(); // input under stats
+    System.err.println(); // input under stats
     }
 }

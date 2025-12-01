@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RpgGame",
+            "request": "launch",
+            "mainClass": "RpgGame",
+            "projectName": "javaRPG_6bc4180a"
+        },
+        {
+            "type": "java",
             "name": "Rpggame",
             "request": "launch",
             "mainClass": "Rpggame",
