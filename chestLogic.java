@@ -31,14 +31,14 @@ public class ChestLogic {
                 System.out.print("|You got a healt potion|\n");
                 System.out.print("------------------------\n"); 
                 //increaseStat("SavedCharacter.txt", "hp", 1);
-                GetPlayerStats.changePlayerStat(2, 1);
+                GetPlayerStats.changePlayerStat(1, 1);
                 return;
               case 2:
                 System.out.print("------------------------\n");
                 System.out.print("|You got a rabbits foot|\n");
                 System.out.print("------------------------\n"); 
                 //increaseStat("SavedCharacter.txt", "agility", 1);
-                GetPlayerStats.changePlayerStat(3, 1);
+                GetPlayerStats.changePlayerStat(2, 1);
                 return;
           
             case 3:
@@ -46,14 +46,14 @@ public class ChestLogic {
                 System.out.print("|You got a tome of knowladge|\n");
                 System.out.print("-----------------------------\n"); 
                 //increaseStat("SavedCharacter.txt", "intelligence", 1);
-                GetPlayerStats.changePlayerStat(4, 1);
+                GetPlayerStats.changePlayerStat(3, 1);
                 return;
             case 4:
                 System.out.print("------------------------\n");
                 System.out.print("|You got a strengh rune|\n");
                 System.out.print("------------------------\n"); 
                 //increaseStat("SavedCharacter.txt", "strength", 1);
-                GetPlayerStats.changePlayerStat(5, 1);
+                GetPlayerStats.changePlayerStat(4, 1);
                 return;
             default:
                 break;

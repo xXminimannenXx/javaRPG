@@ -26,14 +26,27 @@ public class XpSystem {
     }
 }
 
-    public static void playerInteractLevelup(){
-        Scanner uInput = new Scanner(System.in); 
+  public static void playerInteractLevelup() {
+    Scanner uInput = new Scanner(System.in); 
+    
+    while(true) {
         GetPlayerStats.printPlayerStats();
-        System.out.print("\n Brave adventurer you have gained enough expericence during your travles to incresse on of your stats with 1 point, enter the index of the stat you want to incress\n");
-        int userInput = uInput.nextInt()+1;
+        System.out.println("\nLevel Up! Choose stat to increase:");
+        System.out.println("1 - HP | 2 - Agility | 3 - Intelligence | 4 - Strength");
+        System.out.print("Choice: ");
         
-        GetPlayerStats.changePlayerStat(userInput, 1);
-        
-
+        try {
+            int choice = Integer.parseInt(uInput.nextLine().trim());
+            
+            if (choice >= 1 && choice <= 4) {
+                GetPlayerStats.changePlayerStat(choice, 1);
+                System.out.println("Stat increased!");
+                break;
+            }
+            System.out.println("Please enter 1, 2, 3, or 4.");
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number.");
+        }
     }
+}
 }

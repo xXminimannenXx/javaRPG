@@ -22,27 +22,28 @@ public class GetPlayerStats {
     }
 
     public static void changePlayerStat(int lineNumber, int delta) {
-       
-        try {
-            Path path = Paths.get("SavedCharacter.txt");
-            List<String> lines = Files.readAllLines(path);
+    try {
+        Path path = Paths.get("SavedCharacter.txt");
+        List<String> lines = Files.readAllLines(path);
 
-            int index = lineNumber - 1; // 0-based
-            if (index < 0 || index >= lines.size()) {
-                System.out.println("Invalid line number: " + lineNumber);
-                return;
-            }
-
-            int value = Integer.parseInt(lines.get(index));
-            value += delta;
-            lines.set(index, Integer.toString(value));
-
-            Files.write(path, lines);
-
-        } catch (IOException | NumberFormatException e) {
-            e.printStackTrace();
+        
+        int index = lineNumber; 
+        
+        if (index < 0 || index >= lines.size()) {
+            System.out.println("Invalid line number: " + lineNumber);
+            return;
         }
+
+        int value = Integer.parseInt(lines.get(index));
+        value += delta;
+        lines.set(index, Integer.toString(value));
+
+        Files.write(path, lines);
+
+    } catch (IOException | NumberFormatException e) {
+        e.printStackTrace();
     }
+}
       static void printPlayerStats(){
         for (int i = 2; i <= 5; i++){
             System.out.print("[ " + GetPlayerStats.getPlayerStat(i) + " ]");
@@ -50,4 +51,6 @@ public class GetPlayerStats {
         }
         System.err.println(); // input under stats
     }
+       
+     
 }
