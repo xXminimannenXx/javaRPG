@@ -53,7 +53,7 @@ public class RpgMap {
             if (env.equals("outside")) {
                 drawMapOut(playerX, playerY, maxX, maxY,random, randDoorX, randDoorY);
                 
-                printPlayerStats();
+                GetPlayerStats.printPlayerStats();
 
                 if (playerX == randDoorX && playerY == randDoorY) {
                     try { Thread.sleep(500); } catch (InterruptedException e) { }
@@ -67,7 +67,7 @@ public class RpgMap {
       
                 drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY, randEnemyX, randEnemyY);
                 
-                printPlayerStats();
+                GetPlayerStats.printPlayerStats();
         
                 if (playerX == randChestX && playerY == randChestY) {
                     if (hasWon) {
@@ -89,20 +89,14 @@ public class RpgMap {
             }   
 
 
-            int[] newPos = playerMove(playerX, playerY, scanner, maxX, maxY);
+            int[] newPos = PlayerMovment.playerMove(playerX, playerY, scanner, maxX, maxY);
             playerX = newPos[0];
             playerY = newPos[1];
 
         }
     }
 
-    static void printPlayerStats(){
-        for (int i = 2; i <= 5; i++){
-            System.out.print("[ " + GetPlayerStats.getPlayerStat(i) + " ]");
-            
-        }
-        System.err.println(); // input under stats
-    }
+  
 
     static void drawMapOut(int playerX, int playerY, int maxX, int maxY, Random random,int randDoorX, int randDoorY){
         int drawX = 0;
@@ -166,36 +160,6 @@ public class RpgMap {
         }
 
     }
-        static int[] playerMove(int playerX, int playerY, Scanner scanner, int maxX, int maxY) {
-        String input = scanner.nextLine();
-
-
-        if (input.length() == 0) {
-         // bara Enter
-         return new int[]{playerX, playerY};
-         }
-
-        char userInput = Character.toLowerCase(input.charAt(0));
-
-        switch (userInput) {
-            case 'w':
-                if (playerY > 0) playerY--; 
-                break;
-            case 's':
-                if (playerY < maxY-1) playerY++; 
-                break;
-            case 'a':
-                if (playerX > 0) playerX--;
-                break;
-            case 'd':
-                if (playerX < maxX-1) playerX++;
-                break;
-            case 'e':
-                scanner.close();
-                System.exit(0);
-                break;
-        }
-        return new int[]{playerX, playerY};
-    }
+     
 }
 

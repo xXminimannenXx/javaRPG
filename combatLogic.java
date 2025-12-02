@@ -9,12 +9,14 @@ public class CombatLogic {
         int HP;
         int AGL;
         int STR;
+        int XPGained;
 
         Enemy() {
             Random random = new Random();
             this.HP = random.nextInt(5) + 3; // 3-7
             this.AGL = random.nextInt(5) + 3;
             this.STR = random.nextInt(5) + 3;
+            this.XPGained = random.nextInt(50)+1;
         }
     }
 
@@ -42,6 +44,8 @@ public class CombatLogic {
 
             if (enemy.HP <= 0) {
                 System.out.println("You defeated the enemy!\n");
+            
+                XpSystem.getXP(getEnemy().XPGained);
                 return true;
             }
 
