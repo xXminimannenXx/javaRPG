@@ -9,8 +9,15 @@ the game is in swenglish excuse me (Anton) for that :) (now fixed and in full en
 
 hope you enjoy it and please give me feedback as it is one of my first bigger projects in java.
 
+
+THE XP UPDATE IS LIVE
+-you now gain experience when fighting enemies 
+-level upp and increase stats (more intressting level up rewards in the future)
+
+
+
 //planed updates:
-xp system(finally making intellegence stat not useless)
+
 enemy scaling 
 more enviroments and hazards
 better rewards aswell as a inventory
