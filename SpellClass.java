@@ -5,7 +5,13 @@ public class SpellClass {
    private boolean canDoDMG = true;
    
 
+    public SpellClass(String spellName, int spellCost, int spellCostStat, boolean canDoDMG){
+        this.spellCost = spellCost;
+        this.spellName = spellName;
+        this.spellCostStat = spellCostStat;
+        this.canDoDMG = canDoDMG;
 
+    }
     public String getSpellName(){
 
             return spellName;
