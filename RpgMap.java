@@ -68,7 +68,7 @@ public class RpgMap {
                 drawMapInside(playerX, playerY, maxX, maxY, randChestX, randChestY, randEnemyX, randEnemyY);
                 
                 GetPlayerStats.printPlayerStats();
-        
+    
                 if (playerX == randChestX && playerY == randChestY) {
                     if (hasWon) {
                         ChestLogic.runChest();
