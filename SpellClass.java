@@ -38,4 +38,11 @@ public class SpellClass {
         }
         return DMG;
     }
+
+    public static void printAllSpells(){
+        for(SpellClass s : allSpells){
+            System.out.print(s + " ");
+        }
+
+    }
 }
