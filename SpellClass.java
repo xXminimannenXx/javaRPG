@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+
 public class SpellClass {
+    public static ArrayList<SpellClass> allSpells = new ArrayList<SpellClass>();
    private String spellName = "";
    private int spellCost = 0;
    private int spellCostStat = 0; // 1 = hp, 2 = AGL, 3 = INT, 4 = STR om jag tänkt rätt  
@@ -10,6 +13,7 @@ public class SpellClass {
         this.spellName = spellName;
         this.spellCostStat = spellCostStat;
         this.canDoDMG = canDoDMG;
+        allSpells.add(this);
 
     }
     public String getSpellName(){
@@ -29,7 +33,7 @@ public class SpellClass {
     public int getDamage(){
         int DMG = 0;
         if(canDoDMG == true){
-            
+            DMG = spellCost * spellCostStat;
 
         }
         return DMG;
