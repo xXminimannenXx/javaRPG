@@ -5,17 +5,20 @@ public static ArrayList<SpellClass> allSpells = new ArrayList<SpellClass>();
    private String spellName = "";
    private int spellCost = 0;
    private int spellCostStat = 0; // 1 = hp, 2 = AGL, 3 = INT, 4 = STR om jag tänkt rätt  
-   private boolean canDoDMG = true;
+   private int targetSpellBuff = 0;
+   public boolean canDoDMG = true;
    
 
-    public SpellClass(String spellName, int spellCost, int spellCostStat, boolean canDoDMG){
+    public SpellClass(String spellName, int spellCost, int spellCostStat, boolean canDoDMG, int targetSpellBuff){
         this.spellCost = spellCost;
         this.spellName = spellName;
         this.spellCostStat = spellCostStat;
         this.canDoDMG = canDoDMG;
+        this.targetSpellBuff = targetSpellBuff;
         allSpells.add(this);
 
     }
+    
     public String getSpellName(){
 
             return spellName;
@@ -38,12 +41,12 @@ public static ArrayList<SpellClass> allSpells = new ArrayList<SpellClass>();
         }
         return DMG;
     }
-    public int doBuff(int i){
-        //i = index för buffen
+    public int doBuff(){
+       
         int buff = 0;
-        if(canDoDMG != true){
+        if(canDoDMG != true && targetSpellBuff != 0){
             buff = spellCost * spellCostStat;
-            GetPlayerStats.changePlayerStat(i, buff);
+            GetPlayerStats.changePlayerStat(targetSpellBuff, buff);
         }
 
         return buff;

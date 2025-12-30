@@ -1,9 +1,10 @@
 
 import java.util.Random;
+import java.util.Scanner;
 
 
 public class CombatLogic {
-    SpellClass attack = new SpellClass("Attack", 1, 4, true);
+    SpellClass attack = new SpellClass("Attack", 1, 4, true, 0);
     // Enemy class for better structure
     private static class Enemy {
         int HP;
@@ -91,6 +92,18 @@ public class CombatLogic {
         }
         return enemy;
     }
-
+    public static void chooseAttack(){
+        SpellClass.printAllSpells();
+        Scanner scanner = new Scanner(System.in);
+        int uInput = scanner.nextInt();
+       SpellClass currentSpell = SpellClass.allSpells.get(uInput);
+       if(currentSpell.canDoDMG){
+        currentSpell.getDamage();
+       }
+       else{
+        currentSpell.doBuff();
+       }
+           
+    }
    
 }
