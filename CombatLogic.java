@@ -3,7 +3,7 @@ import java.util.Random;
 
 
 public class CombatLogic {
-
+    SpellClass attack = new SpellClass("Attack", 1, 4, true);
     // Enemy class for better structure
     private static class Enemy {
         int HP;

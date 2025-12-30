@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class SpellClass {
-    public static ArrayList<SpellClass> allSpells = new ArrayList<SpellClass>();
+public static ArrayList<SpellClass> allSpells = new ArrayList<SpellClass>();
    private String spellName = "";
    private int spellCost = 0;
    private int spellCostStat = 0; // 1 = hp, 2 = AGL, 3 = INT, 4 = STR om jag tänkt rätt  
@@ -37,6 +37,16 @@ public class SpellClass {
 
         }
         return DMG;
+    }
+    public int doBuff(int i){
+        //i = index för buffen
+        int buff = 0;
+        if(canDoDMG != true){
+            buff = spellCost * spellCostStat;
+            GetPlayerStats.changePlayerStat(i, buff);
+        }
+
+        return buff;
     }
 
     public static void printAllSpells(){
