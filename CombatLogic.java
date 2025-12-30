@@ -62,6 +62,7 @@ public class CombatLogic {
 
     // Player attacks enemy
     private static void playerAttack() {
+        chooseAttack();
         int playerSTR = GetPlayerStats.getPlayerStat(5); // STR is line 5
         enemy.HP -= playerSTR;
 
@@ -96,7 +97,7 @@ public class CombatLogic {
         SpellClass.printAllSpells();
         Scanner scanner = new Scanner(System.in);
         int uInput = scanner.nextInt();
-       SpellClass currentSpell = SpellClass.allSpells.get(uInput);
+       SpellClass currentSpell = SpellClass.allSpells.get(uInput-1);
        if(currentSpell.canDoDMG){
         currentSpell.getDamage();
        }
