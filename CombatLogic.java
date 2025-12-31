@@ -97,7 +97,7 @@ public class CombatLogic {
         SpellClass.printAllSpells();
         Scanner scanner = new Scanner(System.in);
         int uInput = scanner.nextInt();
-       SpellClass currentSpell = SpellClass.allSpells.get(uInput-1);
+       SpellClass currentSpell = SpellClass.allSpells.get(uInput);
        if(currentSpell.canDoDMG){
         currentSpell.getDamage();
        }
